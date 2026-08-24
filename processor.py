@@ -15,9 +15,8 @@ def evaluate_status(average: float, passing_threshold: float = 7.0, exam_thresho
     return "Failed"
 
 if __name__ == "__main__":
-    # Test assertions for local verification
+    # Local verification
     sample_grades = [8.0, 9.0]
     avg = calculate_average(sample_grades)
     status = evaluate_status(avg)
-
     print(f"Test Average: {avg} | Status: {status}")
