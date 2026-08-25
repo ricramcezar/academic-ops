@@ -37,6 +37,14 @@ def process_students(students: list[dict]) -> list[dict]:
 
     return processed_students
 
+
+def format_student_result(student: dict) -> str:
+    return (
+        f"{student['name']} | "
+        f"Average: {student['average']:.2f} | "
+        f"Status: {student['status']}"
+    )
+
 if __name__ == "__main__":
     # Local verification
     students = [
@@ -57,4 +65,4 @@ if __name__ == "__main__":
     processed_students = process_students(students)
 
     for student in processed_students:
-        print(student)
+        print(format_student_result(student))
