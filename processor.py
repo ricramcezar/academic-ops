@@ -6,6 +6,7 @@ def calculate_average(grades: list[float]) -> float:
         return 0.0
     return round(sum(grades) / len(grades), 2)
 
+
 def evaluate_status(average: float, passing_threshold: float = 7.0, exam_threshold: float = 4.0) -> str:
     # Evaluates the student academic standing based on final average.
     if average >= passing_threshold:
@@ -14,9 +15,46 @@ def evaluate_status(average: float, passing_threshold: float = 7.0, exam_thresho
         return "Exam"
     return "Failed"
 
+
+def process_student(student: dict) -> dict:
+    average = calculate_average(student["grades"])
+    status = evaluate_status(average)
+
+    return {
+        "name": student["name"],
+        "grades": student["grades"],
+        "average": average,
+        "status": status
+    }
+
+
+def process_students(students: list[dict]) -> list[dict]:
+    processed_students = []
+
+    for student in students:
+        processed_student = process_student(student)
+        processed_students.append(processed_student)
+
+    return processed_students
+
 if __name__ == "__main__":
     # Local verification
-    sample_grades = [8.0, 9.0]
-    avg = calculate_average(sample_grades)
-    status = evaluate_status(avg)
-    print(f"Test Average: {avg} | Status: {status}")
+    students = [
+    {
+        "name": "Anna",
+        "grades": [8.0, 7.5, 9.0]
+    },
+    {
+        "name": "Brian",
+        "grades": [5.0, 6.0, 4.5]
+    },
+    {
+        "name": "Clara",
+        "grades": [2.0, 3.5, 3.0]
+    }
+    ]
+
+    processed_students = process_students(students)
+
+    for student in processed_students:
+        print(student)
