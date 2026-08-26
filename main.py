@@ -1,23 +1,33 @@
 from processor import process_students, format_student_result
 
 
+def read_student() -> dict:
+    name = input("Student name: ").strip()
+    grades_input = input("Grades (comma-separated): ")
+
+    grades = []
+
+    for grade in grades_input.split(","):
+        grades.append(float(grade.strip()))
+
+    return {
+        "name": name,
+        "grades": grades
+    }
+
+
 def main() -> None:
-    students = [
-        {
-            "name": "Anna",
-            "grades": [8.0, 7.5, 9.0]
-        },
-        {
-            "name": "Brian",
-            "grades": [5.0, 6.0, 4.5]
-        },
-        {
-            "name": "Clara",
-            "grades": [2.0, 3.5, 3.0]
-        }
-    ]
+    student_count = int(input("How many students? "))
+    students = []
+
+    for index in range(student_count):
+        print(f"\nStudent {index + 1}")
+        student = read_student()
+        students.append(student)
 
     processed_students = process_students(students)
+
+    print("\nResults")
 
     for student in processed_students:
         print(format_student_result(student))
