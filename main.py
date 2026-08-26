@@ -17,6 +17,9 @@ def read_student() -> dict:
 
 
 def main() -> None:
+    print("Academic Operations")
+    print("-------------------")
+
     student_count = int(input("How many students? "))
     students = []
 
@@ -27,7 +30,8 @@ def main() -> None:
 
     processed_students = process_students(students)
 
-    print("\nResults")
+    print("\nAcademic Results")
+    print("------------------")
 
     for student in processed_students:
         print(format_student_result(student))
