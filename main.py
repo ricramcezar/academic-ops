@@ -1,4 +1,5 @@
 from processor import process_students, format_student_result
+from exporter import export_students_to_csv
 
 
 def read_positive_integer(prompt: str) -> int:
@@ -94,6 +95,9 @@ def main() -> None:
 
     for student in processed_students:
         print(format_student_result(student))
+
+    export_students_to_csv(processed_students, "academic_results.csv")
+    print("\nResults exported to academic_results.csv")
 
 
 if __name__ == "__main__":
