@@ -1,5 +1,6 @@
 from processor import process_students, format_student_result
 from exporter import export_students_to_csv
+from importer import import_students_from_csv
 
 
 def read_positive_integer(prompt: str) -> int:
@@ -74,19 +75,44 @@ def read_student(expected_grade_count: int) -> dict:
     }
 
 
+def read_input_mode() -> str:
+    while True:
+        mode = input("Input method (manual/csv): ").strip().lower()
+
+        if mode in {"manual", "csv"}:
+            return mode
+
+        print("Please enter 'manual' or 'csv'.")
+
+
 def main() -> None:
     print("Academic Operations")
     print("-------------------")
 
-    student_count = read_positive_integer("How many students? ")
-    grade_count = read_positive_integer("How many grades per student: ")
+    mode = read_input_mode()
 
     students = []
 
-    for index in range(student_count):
-        print(f"\nStudent {index + 1}")
-        student = read_student(grade_count)
-        students.append(student)
+    if mode == "manual":
+        student_count = read_positive_integer("How many students? ")
+        grade_count = read_positive_integer("How many grades per student: ")
+
+        for index in range(student_count):
+            print(f"\nStudent {index + 1}")
+            student = read_student(grade_count)
+            students.append(student)
+
+    else:
+        filename = input("CSV filename: ").strip()
+
+        try:
+            students = import_students_from_csv(filename)
+        except FileNotFoundError:
+            print(f"File not found: {filename}")
+            return
+        except (KeyError, ValueError):
+            print(f"Invalid CSV data: {filename}")
+            return
 
     processed_students = process_students(students)
 

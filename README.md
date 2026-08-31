@@ -14,6 +14,9 @@ The project is being developed as part of my transition into backend development
 - CSV export of academic results
 - CSV import of student data
 - Automated testing with pytest
+- Manual or CSV input mode selection
+- Graceful handling of missing and invalid CSV files
+- End-to-end CSV processing workflow
 
 ## Project Structure
 
@@ -24,6 +27,8 @@ The project is being developed as part of my transition into backend development
 - `test_exporter.py` - tests for CSV export
 - `importer.py` - CSV input and student data parsing
 - `test_importer.py` - tests for CSV import
+- `test_main.py` - tests for CLI input selection and end-to-end workflows
+- `students_input.csv` - sample CSV file for running the import workflow
 
 
 ## Running the Project
@@ -31,6 +36,25 @@ The project is being developed as part of my transition into backend development
 ```bash
 python main.py
 ```
+Choose one of the available input methods:
+
+```text
+Input method (manual/csv):
+```
+
+For manual input, enter student information through the command line.
+
+For CSV input, provide a file using this format:
+
+```csv
+name,grades
+Anna,"8.0, 7.5, 9.0"
+Brian,"5.0, 6.0, 4.5"
+Clara,"2.0, 3.0, 1.0"
+```
+
+A sample file is included as `students_input.csv`.
+
 
 The application generates:
 
@@ -49,5 +73,5 @@ pytest
 Current test suite:
 
 ```text
-16 passed
+21 passed
 ```
