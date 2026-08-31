@@ -12,15 +12,19 @@ The project is being developed as part of my transition into backend development
 - Academic status evaluation
 - Batch student processing
 - CSV export of academic results
+- CSV import of student data
 - Automated testing with pytest
 
 ## Project Structure
 
-- `main.py` — command-line application flow and user input
-- `processor.py` — academic business logic and data processing
-- `exporter.py` — CSV export functionality
-- `test_processor.py` — tests for processing logic
-- `test_exporter.py` — tests for CSV export
+- `main.py` - command-line application flow and user input
+- `processor.py` - academic business logic and data processing
+- `exporter.py` - CSV export functionality
+- `test_processor.py` - tests for processing logic
+- `test_exporter.py` - tests for CSV export
+- `importer.py` - CSV input and student data parsing
+- `test_importer.py` - tests for CSV import
+
 
 ## Running the Project
 
@@ -45,5 +49,5 @@ pytest
 Current test suite:
 
 ```text
-14 passed
+16 passed
 ```
