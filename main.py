@@ -1,4 +1,5 @@
-from processor import process_students, format_student_result
+from service import process_academic_records
+from processor import format_student_result
 from exporter import export_students_to_csv
 from importer import import_students_from_csv
 
@@ -114,7 +115,7 @@ def main() -> None:
             print(f"Invalid CSV data: {filename}")
             return
 
-    processed_students = process_students(students)
+    processed_students = process_academic_records(students)
 
     print("\nAcademic Results")
     print("------------------")

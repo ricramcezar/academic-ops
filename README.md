@@ -17,6 +17,7 @@ The project is being developed as part of my transition into backend development
 - Manual or CSV input mode selection
 - Graceful handling of missing and invalid CSV files
 - End-to-end CSV processing workflow
+- Service layer separating application flow from business logic
 
 ## Project Structure
 
@@ -29,6 +30,21 @@ The project is being developed as part of my transition into backend development
 - `test_importer.py` - tests for CSV import
 - `test_main.py` - tests for CLI input selection and end-to-end workflows
 - `students_input.csv` - sample CSV file for running the import workflow
+- `service.py` - application service layer connecting interfaces to business logic
+- `test_service.py` - tests for the application service layer
+
+
+## Architecture
+
+```text
+main.py
+   ↓
+service.py
+   ↓
+processor.py
+```
+
+The service layer keeps the application flow separate from the core academic business logic and prepares the project for additional interfaces, such as a REST API.
 
 
 ## Running the Project
