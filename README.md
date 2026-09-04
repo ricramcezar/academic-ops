@@ -18,6 +18,9 @@ The project is being developed as part of my transition into backend development
 - Graceful handling of missing and invalid CSV files
 - End-to-end CSV processing workflow
 - Service layer separating application flow from business logic
+- FastAPI HTTP interface
+- Health check endpoint (`GET /health`)
+- Automated API testing with FastAPI TestClient
 
 ## Project Structure
 
@@ -32,19 +35,23 @@ The project is being developed as part of my transition into backend development
 - `students_input.csv` - sample CSV file for running the import workflow
 - `service.py` - application service layer connecting interfaces to business logic
 - `test_service.py` - tests for the application service layer
+- `api.py` - FastAPI application and HTTP endpoints
+- `test_api.py` - automated tests for the HTTP API
 
 
 ## Architecture
 
 ```text
-main.py
-   ↓
-service.py
-   ↓
-processor.py
+CLI (main.py) ─────┐
+                   ↓
+                service.py
+                   ↓
+              processor.py
+
+HTTP (api.py) ─────┘
 ```
 
-The service layer keeps the application flow separate from the core academic business logic and prepares the project for additional interfaces, such as a REST API.
+The application supports separate interfaces while keeping the core academic business logic independent from the delivery layer.
 
 
 ## Running the Project
@@ -80,6 +87,43 @@ academic_results.csv
 
 with the processed student results.
 
+
+## Running the API
+
+Install the runtime dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Start the development server:
+
+```bash
+uvicorn api:app --reload
+```
+
+Health check:
+
+```text
+GET http://127.0.0.1:8000/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "ok",
+  "service": "academic-ops"
+}
+```
+
+Interactive API documentation is available at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+
 ## Running the Tests
 
 ```bash
@@ -89,5 +133,5 @@ pytest
 Current test suite:
 
 ```text
-21 passed
+23 passed
 ```
