@@ -21,6 +21,9 @@ The project is being developed as part of my transition into backend development
 - FastAPI HTTP interface
 - Health check endpoint (`GET /health`)
 - Automated API testing with FastAPI TestClient
+- Student processing API endpoint (`POST /students/process`)
+- Request and response validation with Pydantic
+- Automatic rejection of invalid API payloads
 
 ## Project Structure
 
@@ -37,6 +40,7 @@ The project is being developed as part of my transition into backend development
 - `test_service.py` - tests for the application service layer
 - `api.py` - FastAPI application and HTTP endpoints
 - `test_api.py` - automated tests for the HTTP API
+- `schemas.py` - Pydantic request and response models for the API
 
 
 ## Architecture
@@ -124,6 +128,53 @@ http://127.0.0.1:8000/docs
 ```
 
 
+### Process Students
+
+```text
+POST http://127.0.0.1:8000/students/process
+```
+
+Example request:
+
+```json
+{
+  "students": [
+    {
+      "name": "Anna",
+      "grades": [8.0, 7.5, 9.0]
+    },
+    {
+      "name": "Brian",
+      "grades": [5.0, 6.0, 4.5]
+    }
+  ]
+}
+```
+
+Example response:
+
+```json
+{
+  "results": [
+    {
+      "name": "Anna",
+      "grades": [8.0, 7.5, 9.0],
+      "average": 8.17,
+      "status": "Approved"
+    },
+    {
+      "name": "Brian",
+      "grades": [5.0, 6.0, 4.5],
+      "average": 5.17,
+      "status": "Exam"
+    }
+  ]
+}
+```
+
+Invalid request payloads are automatically rejected with HTTP `422`.
+
+
 ## Running the Tests
 
 ```bash
@@ -133,5 +184,5 @@ pytest
 Current test suite:
 
 ```text
-23 passed
+25 passed
 ```
