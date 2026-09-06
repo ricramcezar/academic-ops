@@ -24,6 +24,9 @@ The project is being developed as part of my transition into backend development
 - Student processing API endpoint (`POST /students/process`)
 - Request and response validation with Pydantic
 - Automatic rejection of invalid API payloads
+- Domain validation for student names and grades
+- Grade constraints from 0 to 10
+- Validation for empty student and grade lists
 
 ## Project Structure
 
@@ -175,6 +178,18 @@ Example response:
 Invalid request payloads are automatically rejected with HTTP `422`.
 
 
+### Validation Rules
+
+The API rejects invalid payloads with HTTP `422`.
+
+Validation includes:
+
+- At least one student per request
+- Student name must not be empty
+- At least one grade per student
+- Grades must be between `0` and `10`
+
+
 ## Running the Tests
 
 ```bash
@@ -184,5 +199,5 @@ pytest
 Current test suite:
 
 ```text
-25 passed
+30 passed
 ```

@@ -66,3 +66,78 @@ def test_process_students_rejects_invalid_grades() -> None:
     )
 
     assert response.status_code == 422
+
+
+def test_process_students_rejects_empty_grades() -> None:
+    response = client.post(
+        "/students/process",
+        json={
+            "students": [
+                {
+                    "name": "Anna",
+                    "grades": [],
+                }
+            ]
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_process_students_rejects_grade_above_ten() -> None:
+    response = client.post(
+        "/students/process",
+        json={
+            "students": [
+                {
+                    "name": "Anna",
+                    "grades": [8.0, 15.0],
+                }
+            ]
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_process_students_rejects_negative_grade() -> None:
+    response = client.post(
+        "/students/process",
+        json={
+            "students": [
+                {
+                    "name": "Anna",
+                    "grades": [8.0, -2.0],
+                }
+            ]
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_process_students_rejects_empty_name() -> None:
+    response = client.post(
+        "/students/process",
+        json={
+            "students": [
+                {
+                    "name": "   ",
+                    "grades": [8.0, 7.5],
+                }
+            ]
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_process_students_rejects_empty_student_list() -> None:
+    response = client.post(
+        "/students/process",
+        json={
+            "students": [],
+        },
+    )
+
+    assert response.status_code == 422
