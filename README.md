@@ -27,6 +27,10 @@ The project is being developed as part of my transition into backend development
 - Domain validation for student names and grades
 - Grade constraints from 0 to 10
 - Validation for empty student and grade lists
+- SQLite persistence with SQLAlchemy
+- ORM model for academic records
+- Repository layer for database access
+- Automated repository tests with isolated temporary databases
 
 ## Project Structure
 
@@ -49,16 +53,51 @@ The project is being developed as part of my transition into backend development
 ## Architecture
 
 ```text
-CLI (main.py) ─────┐
-                   ↓
-                service.py
-                   ↓
-              processor.py
+CLI (main.py) ───────┐
+                     │
+HTTP API (api.py) ───┤
+                     ↓
+                 service.py
+                     ↓
+                processor.py
 
-HTTP (api.py) ─────┘
+                     +
+                     ↓
+               repository.py
+                     ↓
+                SQLAlchemy
+                     ↓
+                  SQLite
 ```
 
 The application supports separate interfaces while keeping the core academic business logic independent from the delivery layer.
+
+
+## Database
+
+Academic Ops uses SQLite for local persistence and SQLAlchemy as its ORM.
+
+The local database file is:
+
+```text
+academic_ops.db
+```
+
+The database file is ignored by Git and is generated locally.
+
+Current persisted model:
+
+```text
+student_records
+```
+
+Fields:
+
+- `id`
+- `name`
+- `grades`
+- `average`
+- `status`
 
 
 ## Running the Project
@@ -199,5 +238,5 @@ pytest
 Current test suite:
 
 ```text
-30 passed
+32 passed
 ```
