@@ -31,6 +31,9 @@ The project is being developed as part of my transition into backend development
 - ORM model for academic records
 - Repository layer for database access
 - Automated repository tests with isolated temporary databases
+- API persistence of processed student records
+- Database sessions managed through FastAPI dependency injection
+- Isolated temporary databases for API persistence tests
 
 ## Project Structure
 
@@ -54,20 +57,20 @@ The project is being developed as part of my transition into backend development
 
 ```text
 CLI (main.py) ───────┐
-                     │
-HTTP API (api.py) ───┤
                      ↓
                  service.py
                      ↓
                 processor.py
 
-                     +
-                     ↓
-               repository.py
-                     ↓
-                SQLAlchemy
-                     ↓
-                  SQLite
+HTTP API (api.py)
+        │
+        ├── service.py → processor.py
+        │
+        └── repository.py
+                 ↓
+             SQLAlchemy
+                 ↓
+               SQLite
 ```
 
 The application supports separate interfaces while keeping the core academic business logic independent from the delivery layer.
@@ -238,5 +241,5 @@ pytest
 Current test suite:
 
 ```text
-32 passed
+33 passed
 ```
